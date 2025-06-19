@@ -1790,6 +1790,25 @@ class AlexaAPI:
 
     @staticmethod
     @_catch_all_exceptions
+    async def get_lists(login: AlexaLogin) -> Optional[dict[str, Any]]:
+        """Get Alexa lists.
+
+        Args:
+        login (AlexaLogin): Successfully logged in AlexaLogin
+
+        Returns json
+
+        """
+        response = await AlexaAPI._static_request(
+            "get",
+            login,
+            "/api/namedLists",
+        )
+        result = await response.json(content_type=None) if response else None
+        return result["lists"] if result and "lists" in result else None
+
+    @staticmethod
+    @_catch_all_exceptions
     async def clear_history(login: AlexaLogin, items: int = 50) -> bool:
         """Clear entries in history."""
         email = login.email
