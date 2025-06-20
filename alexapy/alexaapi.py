@@ -1804,8 +1804,7 @@ class AlexaAPI:
             login,
             "/api/namedLists",
         )
-        result = await response.json(content_type=None) if response else None
-        return result["lists"] if result and "lists" in result else None
+        return await response.json(content_type=None) if response else None
 
     @staticmethod
     @_catch_all_exceptions
